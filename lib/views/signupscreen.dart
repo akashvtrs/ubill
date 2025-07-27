@@ -24,6 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -31,16 +32,46 @@ class _SignupScreenState extends State<SignupScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Image.asset('assets/ubill_background.png', fit: BoxFit.cover),
+                Image.asset('assets/ubillimage.png', fit: BoxFit.cover),
                 const SizedBox(height: 20),
+                OutlinedButton(
+  style: OutlinedButton.styleFrom(
+    side: const BorderSide(color: Color(0xFF404095)), // purple border
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  ),
+    onPressed: () => showFeatureDialog(context),
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: const [
+      Text(
+        'why us',
+        style: TextStyle(
+          color: Color(0xFF404095),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      SizedBox(width: 4),
+      Icon(
+        Icons.help_outline,
+        color:  Colors.blue,
+        size: 18,
+      ),
+    ],
+  ),
+),
+  const SizedBox(height: 10),
+
                 const Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     'Register',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22 ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
 
                 _buildInputField(
                   controller: _businessController,
@@ -190,8 +221,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 16),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Row( 
                   children: [
                     const Text("Already have an account? "),
                     GestureDetector(
@@ -238,19 +268,20 @@ class _SignupScreenState extends State<SignupScreen> {
           prefixIcon: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.grey.shade700,
+                color: Colors.grey[400],
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
             ),
-            child: Icon(icon, color: Colors.white, size: 20),
-          ),
+            child: Icon(icon,  size: 20,color: Colors.black),
+                      ),
+                             hintStyle: const TextStyle(color: Colors.grey),
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
                     obscure ? Icons.visibility_off : Icons.visibility,
-                    color: Colors.grey,
+                    color:  Colors.black,
                   ),
                   onPressed: toggleVisibility,
                 )
@@ -266,4 +297,70 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+  void showFeatureDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      backgroundColor:  const Color(0xFFD8D9EA),
+      insetPadding: const EdgeInsets.all(20),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFFD8D9EA), // light purple background
+          borderRadius: BorderRadius.circular(24),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // 📊 Illustration Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                'assets/dialogbackground.png', // replace with your asset
+                height: 200,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 20), 
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("1. Billing and Estimate", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8),
+                  Text("2. Inventory Management", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8),
+                  Text("3. Payrolls", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8),
+                  Text("4. Final Accounting", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8),
+                  Text("5. GST Filing support", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // 🔙 Back Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF404095),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                ),
+                child: const Text("Back", style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 }

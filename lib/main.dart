@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ubill/views/splashscreen.dart';
+import 'package:ubill/views/loginscreen.dart';
+import 'package:ubill/views/splashscreen.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Ubill',
       theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFD8D9EA)),
-      home: const SplashScreen(),
+      home: const  SplashScreen(),
     );
   }
 }
